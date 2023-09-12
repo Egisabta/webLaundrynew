@@ -13,14 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pakets', function (Blueprint $table) {
+        Schema::create('pesanans', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_paket')->unique();
-            $table->longText('deskripsi');
-            $table->float('harga', 8, 2);
+            $table->string('id_pelanggan');
+            $table->string('id_paket');
+            $table->float('berat', 8, 2);
+            $table->date('tanggal_masuk');
+            $table->date('tanggal_keluar');
+            $table->string('status');
             $table->timestamps();
         });
-          
     }
 
     /**
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pakets');
+        Schema::dropIfExists('pesanans');
     }
 };

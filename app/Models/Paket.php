@@ -9,5 +9,6 @@ use app\Models\Paket;
 class Paket extends Model
 {
     use HasFactory;
+    protected $table = 'pakets';
     protected $fillable = ['nama_paket', 'deskripsi', 'harga'];
 }

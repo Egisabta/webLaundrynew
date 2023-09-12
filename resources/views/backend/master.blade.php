@@ -34,6 +34,22 @@
     <!-- We use those styles to show code examples, you should remove them in your application.-->
     <link href="{{asset('assets/css/examples.css')}}" rel="stylesheet">
     <link href="{{asset('assets/vendors/@coreui/chartjs/css/coreui-chartjs.css')}}" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.min.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></head>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+
+
+
+    
+
   </head>
   <body>
   @include('backend.sidebar')
@@ -53,8 +69,102 @@
     <script src="{{asset('assets/vendors/@coreui/chartjs/js/coreui-chartjs.js')}}"></script>
     <script src="{{asset('assets/vendors/@coreui/utils/js/coreui-utils.js')}}"></script>
     <script src="{{asset('assets/js/main.js')}}"></script>
-    <script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script><script type="text/javascript">
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous">
+
     </script>
+    
+    <script>
+    function showSuccessAlert() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Sukses',
+            text: 'Berhasil!'
+        });
+    }
+</script>
+<script>
+    function showSuccessAlert() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Sukses',
+            text: 'Berhasil!'
+        });
+    }
+    </script>
+
+    <script>
+   $(function(){
+    $(document).on('click', '#delete', function(e){
+      e.preventDefault();
+      var link=$(this).attr("href");
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-danger',
+          cancelButton: 'btn btn-success'
+        },
+        buttonsStyling: false
+      })
+
+      swalWithBootstrapButtons.fire({
+        title: 'Anda yakin??',
+        text: "Data terhapus tidak dapat dikembalikan!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Hapus!',
+        cancelButtonText: 'Batal!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href=link
+          swalWithBootstrapButtons.fire(
+            'Terhapus!',
+            'Data sudah dihapus.',
+            'success'
+          )
+        } 
+      })
+    });
+   });
+</script>
+
+
+@if (session('success'))
+    <script>
+        showSuccessAlert();
+    </script>
+ @endif
+
+ <script>
+    $('#tanggalMasuk,#tanggalKeluar').datepicker({
+        weekStart: 1,
+        daysOfWeekHighlighted: "6,0",
+        autoclose: true,
+        todayHighlight: true,   
+    }); 
+    $('#tanggalMasuk,#tanggalKeluar').datepicker( new Date());  
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#pelanggan').select2()
+      
+    });
+</script>
+
 
   </body>
 </html>

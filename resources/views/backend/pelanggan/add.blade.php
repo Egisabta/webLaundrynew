@@ -3,17 +3,17 @@
 
 <div class="col-12">
               <div class="card mb-4">
-                <div class="card-header"><strong>Tambah Paket</strong><span class="small ms-1"></span></div>
+                <div class="card-header"><strong>Tambah Pelanggan</strong><span class="small ms-1"></span></div>
                 <div class="card-body">    
                   <div class="example">     
                     <div class="tab-content rounded-bottom">
                       <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-1000">
-                      <form action="{{ route('paket.store') }}" method="post" enctype="multipart/form-data">
+                      <form action="{{ route('pelanggan.store') }}" method="post" enctype="multipart/form-data">
                       @csrf
                         <div class="mb-3">
-                          <label class="form-label" for="formGroupExampleInput">Nama Paket</label>
-                          <input class="form-control  @error('nama_paket') is-invalid @enderror" id="formGroupExampleInput" type="text" placeholder="" name="nama_paket">
-                           @error('nama_paket')
+                          <label class="form-label" for="formGroupExampleInput">Nama Pelanggan</label>
+                          <input class="form-control  @error('nama') is-invalid @enderror" id="formGroupExampleInput" type="text" placeholder="" name="nama">
+                           @error('nama')
                             <div class="invalid-feedback">
                             {{$message}}
                             </div>
@@ -21,9 +21,9 @@
                         </div>
 
                         <div class="mb-3">
-                        <label class="form-label" for="formGroupExampleInput2">Deskripsi Paket</label>
-                        <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="exampleFormControlTextarea1" rows="3" name="deskripsi"></textarea>
-                        @error('deskripsi')
+                        <label class="form-label" for="formGroupExampleInput2">Alamat</label>
+                        <textarea class="form-control @error('alamat') is-invalid @enderror" id="exampleFormControlTextarea1" rows="3" name="alamat"></textarea>
+                        @error('alamat')
                             <div class="invalid-feedback">
                             {{$message}}
                             </div>
@@ -31,9 +31,9 @@
                          </div>
                     
                         <div class="input-group mb-3">
-                        <label for="inputField" class="input-group-text">Masukkan Harga</label>
-                          <input class="form-control @error('harga') is-invalid @enderror" type="text" name="harga" aria-label=""><span class="input-group-text">/kg</span>
-                          @error('harga')
+                        <label for="inputField" class="input-group-text">No.Telp</label>
+                          <input class="form-control @error('no_telp') is-invalid @enderror" type="text" name="no_telp" aria-label="">
+                          @error('no_telp')
                             <div class="invalid-feedback">
                             {{$message}}
                             </div>
