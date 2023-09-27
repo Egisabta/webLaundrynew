@@ -32,14 +32,6 @@
             </svg>Pemesanan</a>
           </li>
 
-          <li class="nav-item"><a class="nav-link" href="">
-            <svg class="nav-icon">
-              <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
-            </svg>Pembayaran</a>
-          </li>
-
-        
-
             <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
             <svg class="nav-icon">
               <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-cursor"></use>

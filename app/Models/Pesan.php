@@ -15,7 +15,8 @@ class Pesan extends Model
         'id_pelanggan',
         'id_paket',
         'tgl_pesan',
-        'berat'
+        'berat',
+        'total_bayar'
         ];
 
         public function pelanggans(){

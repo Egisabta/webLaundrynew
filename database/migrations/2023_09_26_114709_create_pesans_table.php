@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('id_pelanggan');
             $table->string('id_paket');
             $table->date('tgl_pesan');
-            $table->string('berat');
+            $table->float('berat', 8, 2);
+            $table->float('total_bayar', 8, 2);
             $table->timestamps();
         });
     }

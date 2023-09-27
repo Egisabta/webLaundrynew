@@ -15,6 +15,8 @@
                           <th class="text-center">Jenis Paket</th>
                           <th class="text-center">Tanggal Pesan</th>
                           <th class="text-center">Berat</th>
+                          <th class="text-center">Total Bayar</th>
+                          <th class="text-center">Status Bayar</th>
                           <th class="text-center">Action</th>
                         </tr>
                       </thead>
@@ -28,12 +30,14 @@
                             {{ \Carbon\Carbon::createFromFormat('Y-m-d', $data->tgl_pesan)->format('d F Y') }}</td>
                           </td>
                           <td class="text-center">{{$data->berat}} kg</td>
+                          <td class="text-center">Rp.{{ number_format($data->total_bayar, 2) }}</td>
+                          <td> </td>
                           <td class="text-center">
-                         <!-- <a href=""class="btn btn-success btn-sm"><i class="fa fa-eye fa-lg" style="color:white"></i></a> -->
+                         <a href=""class="btn btn-info btn-sm"><i class="fa fa-money-bill-alt fa-lg" style="color:white"></i></a>
                         <a href=""class="btn btn-warning btn-sm"><i class="fa fa-edit fa-lg" style="color:white"></i></a>
                         <a href="" id="delete" class="btn btn-danger btn-sm"  ><i class="fa fa-trash fa-lg" style="color:white"></i></a>
                           </td>
-   
+                         
                         </tr>
                     @endforeach
                       </tbody>

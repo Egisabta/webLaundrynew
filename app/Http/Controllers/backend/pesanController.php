@@ -49,9 +49,14 @@ class pesanController extends Controller
                         $data->id_paket=$request->id_paket;
                         $data->tgl_pesan= $tanggalPesan->toDateString();
                         $data->berat= $request->berat;
-                      
-             
-                 $data->save();
+                    
+                   // Hitung total pembayaran dan simpan ke dalam pesanan
+                         $paket = Paket::find($request->id_paket);
+                         if ($paket) {
+                         $totalBayar = $paket->harga * $request->berat;
+                         $data->total_bayar = $totalBayar;
+                         $data->save();
+        }
                  return redirect()->route('pesanan.index')->with('info', 'Tambah Alat berhasil');
              }   
         
