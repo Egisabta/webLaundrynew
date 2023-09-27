@@ -12,32 +12,30 @@
                         <tr>
                           <th class="text-center">No</th>
                           <th class="text-center">Nama Pelanggan</th>
-                          <th class="text-center">Nama Paket</th>
+                          <th class="text-center">Jenis Paket</th>
+                          <th class="text-center">Tanggal Pesan</th>
                           <th class="text-center">Berat</th>
-                          <th class="text-center">Tanggal Masuk</th>
-                          <th class="text-center">Tanggal Keluar</th>
-                          <th class="text-center">Status</th>
                           <th class="text-center">Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                      @foreach($pesanan as $data)
+                      @foreach($allDataPesanan as $data)
                         <tr>
-                          <th class="text-center" max-width="15px" scope="row"></th>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td> 
+                          <th class="text-center" max-width="15px" scope="row">{{ $loop->iteration }}</th>
+                          <td class="text-center" >{{$data->pelanggans->nama}}</td>
+                          <td class="text-center">{{$data->pakets->nama_paket}}</td>
                           <td class="text-center">
-                         <a href=""class="btn btn-success btn-sm"><i class="fa fa-eye fa-lg" style="color:white"></i></a>
+                            {{ \Carbon\Carbon::createFromFormat('Y-m-d', $data->tgl_pesan)->format('d F Y') }}</td>
+                          </td>
+                          <td class="text-center">{{$data->berat}} kg</td>
+                          <td class="text-center">
+                         <!-- <a href=""class="btn btn-success btn-sm"><i class="fa fa-eye fa-lg" style="color:white"></i></a> -->
                         <a href=""class="btn btn-warning btn-sm"><i class="fa fa-edit fa-lg" style="color:white"></i></a>
                         <a href="" id="delete" class="btn btn-danger btn-sm"  ><i class="fa fa-trash fa-lg" style="color:white"></i></a>
                           </td>
    
                         </tr>
-             @endforeach
+                    @endforeach
                       </tbody>
                     </table>
                   </div>

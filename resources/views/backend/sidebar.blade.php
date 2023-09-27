@@ -11,29 +11,46 @@
         <li class="nav-item"><a class="nav-link" href="index.html">
             <svg class="nav-icon">
               <use xlink:href="{{asset('assets/vendors/@coreui/icons/svg/free.svg#cil-speedometer')}}"></use>
-            </svg> Dashboard</a></li>
-        <li class="nav-title">Menu</li>
+            </svg> Dashboard</a>
+          </li>
+
+            <li class="nav-item"><a class="nav-link" href="">
+            <svg class="nav-icon">
+              <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
+            </svg>Cek Status</a>
+          </li>
+        <li class="nav-title">Menu Laundry</li>
         <li class="nav-item"><a class="nav-link" href="{{route('pelanggan.index')}}">
             <svg class="nav-icon">
               <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
             </svg>Pelanggan</a>
           </li>
 
+          <li class="nav-item"><a class="nav-link" href="{{ route('pesanan.index')}}">
+            <svg class="nav-icon">
+              <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
+            </svg>Pemesanan</a>
+          </li>
+
+          <li class="nav-item"><a class="nav-link" href="">
+            <svg class="nav-icon">
+              <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
+            </svg>Pembayaran</a>
+          </li>
+
+        
+
             <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
             <svg class="nav-icon">
               <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-cursor"></use>
-            </svg>Pemesanan</a>
+            </svg>Opsi Menu</a>
           <ul class="nav-group-items">
-            <li class="nav-item"><a class="nav-link" href="{{ route('paket.index') }}"><span class="nav-icon"></span>Paket</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('pesanan.index')}}"><span class="nav-icon"></span>Pesanan</a></li>
-            <li class="nav-item"><a class="nav-link" href="buttons/dropdowns.html"><span class="nav-icon"></span>Pembayaran</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('paket.index') }}"><span class="nav-icon"></span>Jenis Paket</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('jenisPembayaran.index')}}"><span class="nav-icon"></span>Jenis Pembayaran</a></li>
           </ul>
         </li>
-        <li class="nav-item"><a class="nav-link" href="{{route('pelanggan.index')}}">
-            <svg class="nav-icon">
-              <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
-            </svg>Pembukuan</a>
-          </li>
+        
+      
       </ul>
       <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
     </div>

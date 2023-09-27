@@ -21,7 +21,7 @@ class paketController extends Controller
      $rules=[
        'nama_paket' => 'required|unique:pakets',
        'deskripsi' => 'required',
-       'harga' => 'required',
+       'harga' => 'required|numeric',
       ];
  
         $messages =[
@@ -32,12 +32,14 @@ class paketController extends Controller
       ];
  
       $this->validate($request,$rules,$messages);
-       $x = (float) $request->input('harga');
+      //  $x = (float) $request->input('harga');
 
        $paket = new Paket(); 
        $paket->nama_paket=$request->input('nama_paket');
        $paket->deskripsi=$request->input('deskripsi');
-       $paket->harga = $x;
+       $paket->harga=$request->input('harga');
+
+      //  $paket->harga = $x;
    
       
        $paket->save();
@@ -54,6 +56,7 @@ class paketController extends Controller
          $validateData= $request->validate([
             'nama_paket' => 'required',
             'deskripsi' => 'required',
+            'harga' => 'required|numeric',
        
          ]);
       
@@ -61,6 +64,7 @@ class paketController extends Controller
          $editData->update([
             'nama_paket'=> $request->input('nama_paket'),
             'deskripsi' => $request->input('deskripsi'),
+            'harga' => $request->input('harga'),
             
          ]);
          return redirect()->route('paket.index')->with('success','Tambah Bahan berhasil');
