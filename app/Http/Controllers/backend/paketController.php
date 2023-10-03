@@ -10,11 +10,11 @@ class paketController extends Controller
 {
     public function index(){ 
          $paket = Paket::all();
-         return view('backend.paket.index', compact('paket'));
+         return view('admin.paket.index', compact('paket'));
        }
 
     public function add(){
-        return view('backend.paket.add');
+        return view('admin.paket.add');
     }
 
     public function store(Request $request){

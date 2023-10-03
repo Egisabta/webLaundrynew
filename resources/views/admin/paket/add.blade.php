@@ -32,7 +32,7 @@
                     
                         <div class="input-group mb-3">
                         <label for="inputField" class="input-group-text">Masukkan Harga</label>
-                          <input class="form-control @error('harga') is-invalid @enderror" type="text" name="harga" aria-label=""><span class="input-group-text">/kg</span>
+                          <input class="form-control @error('harga') is-invalid @enderror" type="number" name="harga" aria-label=""><span class="input-group-text">/kg</span>
                           @error('harga')
                             <div class="invalid-feedback">
                             {{$message}}

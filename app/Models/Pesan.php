@@ -9,14 +9,13 @@ class Pesan extends Model
 {
     use HasFactory;
     protected $table = 'pesans';
-    protected $primarykey = 'id';
     protected $fillable = [
-        'id',
         'id_pelanggan',
         'id_paket',
         'tgl_pesan',
         'berat',
-        'total_bayar'
+        'total_bayar',
+        'diskon_persen'
         ];
 
         public function pelanggans(){
@@ -25,4 +24,17 @@ class Pesan extends Model
         public function pakets(){
             return $this->belongsTo(Paket::class, 'id_paket');
         }
+    //     public function pembayarans()
+    // {
+    //     return $this->hasOne(Pembayaran::class, 'pesanan_id');
+    // }
+
+    public function pembayarans()
+    {
+        return $this->hasMany(Pembayaran::class, 'pesanan_id');
+    }
+    public function cek_statuses()
+    {
+        return $this->hasMany(CekStatus::class, 'id_pemesan', 'id');
+    }
 }

@@ -11,11 +11,11 @@ class jenisPembayaranController extends Controller
 {
     public function index(){ 
         $jenisPem = jenisPembayaran::all();
-        return view('backend.jenisPembayaran.index', compact('jenisPem'));
+        return view('admin.jenisPembayaran.index', compact('jenisPem'));
       }
 
    public function add(){
-       return view('backend.jenisPembayaran.add');
+       return view('admin.jenisPembayaran.add');
    }
 
    public function store(Request $request){

@@ -10,10 +10,10 @@ class pelangganController extends Controller
 {
     public function index(){ 
         $pelanggan = Pelanggan::all();
-        return view('backend.pelanggan.index', compact('pelanggan'));
+        return view('admin.pelanggan.index', compact('pelanggan'));
       }
       public function add(){
-        return view('backend.pelanggan.add');
+        return view('admin.pelanggan.add');
     }
     public function store(Request $request){
         $rules=[
@@ -43,7 +43,7 @@ class pelangganController extends Controller
        }
        public function edit(Request $request, $id){
         $editData = Pelanggan::findOrFail($id);
-         return view('backend.pelanggan.edit', compact('editData'));
+         return view('admin.pelanggan.edit', compact('editData'));
     }
     public function update(Request $request, $id)
     {

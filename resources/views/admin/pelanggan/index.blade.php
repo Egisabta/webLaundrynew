@@ -18,6 +18,7 @@
                         </tr>
                       </thead>
                       <tbody>
+                        
                       @foreach($pelanggan as $data)
                         <tr>
                           <th class="text-center" max-width="15px" scope="row">{{$loop->iteration}}</th>

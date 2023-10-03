@@ -5,6 +5,11 @@ use App\Http\Controllers\backend\paketController;
 use App\Http\Controllers\backend\pesanController;
 use App\Http\Controllers\backend\pelangganController;
 use App\Http\Controllers\backend\jenisPembayaranController;
+use App\Http\Controllers\backend\PembayaranController;
+use App\Http\Controllers\backend\notaController;
+use App\Http\Controllers\backend\cekStatusController;
+
+
 
 
 
@@ -25,6 +30,9 @@ Route::prefix('pesanan')->group(function(){
     Route::get('/view', [pesanController::class, 'index'])->name('pesanan.index');
     Route::get('/add', [pesanController::class, 'add'])->name('pesanan.add');
     Route::post('/store', [pesanController::class, 'store'])->name('pesanan.store');
+    Route::get('/edit/{id}', [pesanController::class, 'edit'])->name('pesanan.edit');
+    Route::post('/update/{id}', [pesanController::class, 'update'])->name('pesanan.update');
+    Route::get('/delete/{id}', [pesanController::class, 'delete'])->name('pesanan.delete');
 });
 
 Route::prefix('pelanggan')->group(function(){
@@ -45,3 +53,19 @@ Route::prefix('jenisPembayaran')->group(function(){
     Route::get('/delete/{id}', [jenisPembayaranController::class, 'delete'])->name('jenisPembayaran.delete');
 
 });
+
+Route::prefix('pembayaran')->group(function(){
+    Route::get('/add', [PembayaranController::class, 'add'])->name('pembayaran.add');
+    Route::post('/store', [PembayaranController::class, 'store'])->name('pembayaran.store');
+    Route::get('/delete/{id}', [PembayaranController::class, 'delete'])->name('pembayaran.delete');
+});
+Route::prefix('cekStatus')->group(function(){
+    Route::get('/index', [cekStatusController::class, 'index'])->name('cekStatus.index');
+    Route::get('/edit/{id}', [cekStatusController::class, 'edit'])->name('cekStatus.edit');
+    Route::put('/update/{id}', [CekStatusController::class, 'update'])->name('cekStatus.update');
+});
+
+Route::get('cetak-nota-pesanan/{id}', [notaController::class, 'notabelumBayar'])->name('nota.no');
+
+
+

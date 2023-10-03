@@ -14,12 +14,12 @@
             </svg> Dashboard</a>
           </li>
 
-            <li class="nav-item"><a class="nav-link" href="">
+            <li class="nav-item"><a class="nav-link" href="{{route('cekStatus.index')}}">
             <svg class="nav-icon">
               <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
             </svg>Cek Status</a>
           </li>
-        <li class="nav-title">Menu Laundry</li>
+        <!-- <li class="nav-title">Menu Laundry</li> -->
         <li class="nav-item"><a class="nav-link" href="{{route('pelanggan.index')}}">
             <svg class="nav-icon">
               <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
@@ -39,6 +39,7 @@
           <ul class="nav-group-items">
             <li class="nav-item"><a class="nav-link" href="{{ route('paket.index') }}"><span class="nav-icon"></span>Jenis Paket</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('jenisPembayaran.index')}}"><span class="nav-icon"></span>Jenis Pembayaran</a></li>
+            <li class="nav-item"><a class="nav-link" href=""><span class="nav-icon"></span>Pembukuan</a></li>
           </ul>
         </li>
         

@@ -41,8 +41,16 @@
       
                         <div class="input-group mb-3">
                         <label for="inputField" class="input-group-text">Berat</label>
-                          <input class="form-control " type="text" name="berat" aria-label=""><span class="input-group-text">/kg</span>
+                          <input class="form-control " type="number" name="berat" aria-label=""><span class="input-group-text">/kg</span>
                         </div> 
+
+                        
+                        <div class="input-group mb-3">
+                        <label for="inputField" class="input-group-text">Diskon (%)</label>
+                          <input class="form-control " type="number" name="diskon_persen" placeholder="Masukkan apabila memiliki diskon" aria-label=""><span class="input-group-text">%</span>
+                        </div> 
+
+                       
 
                         <button type="submit" class="btn btn-success" style="float: right;">Simpan</button>
                         </form>

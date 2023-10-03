@@ -10,7 +10,10 @@ class jenisPembayaran extends Model
 {
     use HasFactory;
     protected $table = 'jenis_pembayarans';
-    protected $primaryKey = 'id';
-    protected $fillable = ['id','jenis_pembayaran'];
+    protected $fillable = ['jenis_pembayaran'];
+
+    public function pembayarans(){
+        return $this->hasMany(pembayaran::class, 'metode_pembayaran');
+    }
 
 }

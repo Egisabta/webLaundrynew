@@ -8,11 +8,11 @@
             <svg width="118" height="46" alt="CoreUI Logo">
               <use xlink:href="assets/brand/coreui.svg#full"></use>
             </svg></a>
-          <ul class="header-nav d-none d-md-flex">
+          <!-- <ul class="header-nav d-none d-md-flex">
             <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Users</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
-          </ul>
+          </ul> -->
           <ul class="header-nav ms-auto">
             <li class="nav-item"><a class="nav-link" href="#">
                 <svg class="icon icon-lg">
@@ -73,15 +73,15 @@
             </li>
           </ul>
         </div>
-        <div class="header-divider"></div>
+        <!-- <div class="header-divider"></div>
         <div class="container-fluid">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb my-0 ms-2">
               <li class="breadcrumb-item">
-                <!-- if breadcrumb is single--><span>Home</span>
+                if breadcrumb is single<span>Home</span>
               </li>
               <li class="breadcrumb-item active"><span>Dashboard</span></li>
             </ol>
           </nav>
-        </div>
+        </div> -->
       </header>

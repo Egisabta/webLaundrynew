@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('tgl_pesan');
             $table->float('berat', 8, 2);
             $table->float('total_bayar', 8, 2);
+            $table->float('diskon_persen', 5, 2)->nullable();
             $table->timestamps();
         });
     }
