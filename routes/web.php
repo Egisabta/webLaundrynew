@@ -57,12 +57,14 @@ Route::prefix('jenisPembayaran')->group(function(){
 Route::prefix('pembayaran')->group(function(){
     Route::get('/add', [PembayaranController::class, 'add'])->name('pembayaran.add');
     Route::post('/store', [PembayaranController::class, 'store'])->name('pembayaran.store');
-    Route::get('/delete/{id}', [PembayaranController::class, 'delete'])->name('pembayaran.delete');
+   
 });
 Route::prefix('cekStatus')->group(function(){
     Route::get('/index', [cekStatusController::class, 'index'])->name('cekStatus.index');
-    Route::get('/edit/{id}', [cekStatusController::class, 'edit'])->name('cekStatus.edit');
-    Route::put('/update/{id}', [CekStatusController::class, 'update'])->name('cekStatus.update');
+    Route::get('/add/{id}', [cekStatusController::class, 'add'])->name('cekStatus.add');
+    Route::post('/store/{id}', [cekStatusController::class, 'store'])->name('cekStatus.store');
+  
+
 });
 
 Route::get('cetak-nota-pesanan/{id}', [notaController::class, 'notabelumBayar'])->name('nota.no');

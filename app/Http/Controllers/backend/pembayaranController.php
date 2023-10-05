@@ -36,7 +36,13 @@ class pembayaranController extends Controller
             'status_pembayaran' => 'required|in:Lunas', 
         ]);
 
-      
+        $sudahLunas = Pembayaran::where('pesanan_id', $validatedData['pesanan_id'])->first();
+
+        if ($sudahLunas) {
+            return redirect()->back()->with('error', 'Pembayaran untuk pesanan ini sudah ada.');
+        }
+
+
         $pesanan = Pesan::find($validatedData['pesanan_id']);
         $tanggalPembayaran = Carbon::createFromFormat('d F Y', $request->input('tanggal_pembayaran'));
 
@@ -52,8 +58,6 @@ class pembayaranController extends Controller
 
         $pembayaran->save();
 
-        return redirect()->back()->with('success', 'Pembayaran berhasil ditambahkan');
+        return redirect()->route('pesanan.index')->with('info', 'Pesan berhasil diperbarui.');
     }
-   
-
 }

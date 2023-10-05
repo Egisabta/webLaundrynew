@@ -33,7 +33,7 @@ class pelangganController extends Controller
           $pelanggan = new Pelanggan(); 
           $pelanggan->nama=$request->input('nama');
           $pelanggan->alamat=$request->input('alamat');
-          $pelanggan->no_telp=$request->input('no_telp');
+          $pelanggan->no_telp=$request->no_telp;
         
       
          
@@ -65,9 +65,6 @@ class pelangganController extends Controller
          return redirect()->route('pelanggan.index')->with('success','Tambah Bahan berhasil');
 
 }
-
-
-
        public function delete($id){
         $pelanggan=Pelanggan::find($id);
    

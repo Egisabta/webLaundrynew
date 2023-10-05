@@ -41,7 +41,7 @@
       
                         <div class="input-group mb-3">
                         <label for="inputField" class="input-group-text">Berat</label>
-                          <input class="form-control " type="number" name="berat" aria-label=""><span class="input-group-text">/kg</span>
+                          <input class="form-control " type="text" name="berat" aria-label=""><span class="input-group-text">/kg</span>
                         </div> 
 
                         

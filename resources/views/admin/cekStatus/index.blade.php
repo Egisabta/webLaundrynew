@@ -17,44 +17,64 @@
                           <th class="text-center">Tanggal Bayar</th>
                           <th class="text-center">Status Laundry</th>
                           <th class="text-center">Tanggal Pengambilan</th>
+
                           <th class="text-center">Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         
-                      
-                      @foreach($pesanData as $key => $pesan)
+                      @php $i = count($pesanData); @endphp
+                     @foreach($pesanData->reverse() as $data)
+                     
                     <tr>
-                        <td class="text-center">{{ $key + 1 }}</td>
-                        <td class="text-center">{{ $pesan->pelanggans->nama }}</td>
+                        <td class="text-center">{{ $i-- }}</td>
+                        <td class="text-center">{{ $data->pelanggans->nama }}</td>
                         <td class="text-center">  
-                          {{ \Carbon\Carbon::createFromFormat('Y-m-d', $pesan->tgl_pesan)->format('d F Y') }}
+                          {{ \Carbon\Carbon::createFromFormat('Y-m-d', $data->tgl_pesan)->format('d F Y') }}
                         </td>
                         <td class="text-center">
-                            @if ($pesan->pembayarans->isEmpty())
+                            @if ($data->pembayarans->isEmpty())
                             <span class="text-danger">Belum Bayar</span>
                             @else
-                            @foreach ($pesan->pembayarans as $pembayaran)
+                            @foreach ($data->pembayarans as $pembayaran)
                             <span class="text-success">{{ $pembayaran->status_pembayaran }}</span>
                             @endforeach
                             @endif
                         </td>
                         <td class="text-center">
-                            @if ($pesan->pembayarans->isEmpty())
+                            @if ($data->pembayarans->isEmpty())
                             <span class="text-danger">-</span>
                             @else
-                            @foreach ($pesan->pembayarans as $tglBayar)        
+                            @foreach ($data->pembayarans as $tglBayar)        
                             <span class="text-success">{{ \Carbon\Carbon::createFromFormat('Y-m-d', $tglBayar->tanggal_pembayaran)->format('d F Y') }}</span>
                             @endforeach
                             @endif
                         </td>
-                        <td>
-                         </td>
-                         <td>
-                         </td>
-   
+
+                        <td class="text-center">
+                        @if ($data->cek_statuses->isEmpty())
+                        <span class="text-danger">-</span>
+                        @else
+                        @foreach ($data->cek_statuses as $cek_status)
+                        <span>{{ $cek_status->status_laundry }}</span>
+                        @endforeach
+                        @endif
+                        </td>
+
+                        <td class="text-center">
+                        @if ($data->cek_statuses->isEmpty())
+                        <span class="text-danger">-</span>
+                        @else
+                        @foreach ($data->cek_statuses as $cek_status)
+                        <span class="text-success">
+                       {{ $cek_status->tgl_pengambilan ? \Carbon\Carbon::createFromFormat('Y-m-d', $cek_status->tgl_pengambilan)->format('d F Y') : '-' }}
+                       </span>
+                       @endforeach
+                       @endif
+                       </td>                        
+                                            
                        <td class="text-center" style="max-width:70px;"> 
-                       <a href="{{ route('cekStatus.edit', ['id' => $pesan->id]) }}" class="btn btn-warning btn-sm">
+                       <a href="{{ route('cekStatus.add', ['id' => $data->id]) }}"class="btn btn-warning btn-sm">
                          <i class="fa fa-edit fa-lg" style="color:white"></i>
                          </a>
                        </td>

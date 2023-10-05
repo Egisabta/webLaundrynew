@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('pesanan_id');
             $table->string('nama_pelanggan'); 
             $table->float('total_bayar', 8, 2); 
-            $table->string('status_pembayaran');
+            $table->string('status_pembayaran')->default('Belum Bayar');
             $table->string('metode_pembayaran');
             $table->date('tanggal_pembayaran');
             $table->timestamps();

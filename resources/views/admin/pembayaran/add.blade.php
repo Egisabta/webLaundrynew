@@ -28,11 +28,9 @@
                     </div>
                     </fieldset>
 
-
-
                     <div class="form-grup mb-3">
                           <select id="" class="form-select " aria-label="Default select example" name="metode_pembayaran">
-                          <option selected disabled>Paket Yang Dipilih</option> 
+                          <option selected disabled>Metode Pembayaran</option> 
                            @foreach ($jenisPembayaran as $data)            
                           <option value="{{$data->id}}">{{$data->jenis_pembayaran}}</option>
                            @endforeach
@@ -51,9 +49,7 @@
                           <option value="Lunas">Lunas</option>
                            </select>
                            </div> 
-
-                          
-
+                   
                         <button type="submit" class="btn btn-success" style="float: right;">Simpan</button>
                        
                         </form>

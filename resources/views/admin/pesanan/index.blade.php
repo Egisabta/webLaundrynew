@@ -42,13 +42,8 @@
                           </span>
                           @endif
                           </td>
+                        
                           
-                          <!-- @if($data->diskon)
-                          {{ number_format($data->total_bayar - $data->diskon, 2) }}
-                           @else
-                          {{ number_format($data->total_bayar, 2) }}
-                           @endif -->
-                          </td>
 
                           <td class="text-center">
                           @if ($data->pembayarans->isEmpty())
@@ -57,7 +52,7 @@
                           <a href="{{ route('nota.no', ['id' => $data->id]) }}" class="small">Cetak Nota </a>
                           @else
                           @foreach ($data->pembayarans as $pembayaran)
-                         <span class="text-success">{{ $pembayaran->status_pembayaran }}</span>
+                        <span class="text-success">{{ $pembayaran->status_pembayaran ?? 'Belum Bayar' }}</span>
                          <br>
                          <a href="#" class="small">Cetak Nota</a>
                         @endforeach

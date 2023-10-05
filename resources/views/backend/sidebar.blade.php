@@ -19,17 +19,17 @@
               <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
             </svg>Cek Status</a>
           </li>
-        <!-- <li class="nav-title">Menu Laundry</li> -->
-        <li class="nav-item"><a class="nav-link" href="{{route('pelanggan.index')}}">
-            <svg class="nav-icon">
-              <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
-            </svg>Pelanggan</a>
-          </li>
 
           <li class="nav-item"><a class="nav-link" href="{{ route('pesanan.index')}}">
             <svg class="nav-icon">
               <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
             </svg>Pemesanan</a>
+          </li>
+        
+        <li class="nav-item"><a class="nav-link" href="{{route('pelanggan.index')}}">
+            <svg class="nav-icon">
+              <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
+            </svg>Pelanggan</a>
           </li>
 
             <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">

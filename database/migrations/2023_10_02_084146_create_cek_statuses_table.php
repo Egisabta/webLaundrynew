@@ -18,9 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('id_pemesan');
             $table->date('id_tglPesan');
             $table->string('status_pembayaran');
-            $table->date('tgl_pembayaran');
-            $table->enum('status_laundry', ['A', 'B', 'C'])->default('A'); // Menambahkan kolom status_laundry
-            $table->date('tanggal_pengambilan')->nullable(); // Menambahkan kolom tanggal_pengambilan yang dapat berisi NULL
+            $table->date('tgl_pembayaran')->nullable();
+            $table->enum('status_laundry', ['Belum Selesai', 'Selesai']); 
+            $table->date('tgl_pengambilan')->nullable(); 
             $table->timestamps();
             $table->foreign('id_pemesan')->references('id')->on('pesans')->onDelete('cascade');
         });

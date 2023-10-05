@@ -158,13 +158,13 @@
 </script> -->
 <script>
     $(document).ready(function () {
-        $('#tgl_pesan, #tgl_pembayaran').datepicker({
+        $('#tgl_pesan, #tgl_pembayaran, #tgl_pengambilan').datepicker({
             dateFormat: "dd MM yy", // Format tanggal seperti "12 Agustus 2023"
             // Anda dapat menyesuaikan format sesuai kebutuhan Anda
             autoclose: true, // Menutup kalender setelah memilih tanggal
         });
 
-        $('#tgl_pesan, #tgl_pembayaran').datepicker('setDate', new Date());
+        // $('#tgl_pesan, #tgl_pembayaran, #tgl_pengambilan').datepicker('setDate', new Date());
     });
 </script>
 <script>

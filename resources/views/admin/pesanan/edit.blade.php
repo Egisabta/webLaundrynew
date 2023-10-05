@@ -37,10 +37,10 @@
                             <div class="input-group mb-3">
                                 <label for="tgl_pesan" class="input-group-text">Tanggal Pesan</label>
                                 <input class="form-control" id="tgl_pesan" type="text" name="tgl_pesan"
-                                    value="{{ $pesan->tgl_pesan }}" />
+                                    value=" {{ \Carbon\Carbon::createFromFormat('Y-m-d', $pesan->tgl_pesan)->format('d F Y') }}" />
                                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                             </div>
-
+                           
                             <div class="input-group mb-3">
                                 <label for="inputField" class="input-group-text">Berat</label>
                                 <input class="form-control" type="number" name="berat" aria-label=""

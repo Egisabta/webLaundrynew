@@ -16,7 +16,7 @@ class CekStatus extends Model
         'status_pembayaran',
         'tanggal_pembayaran',
         'status_laundry',
-        'tgl_pengambalian',
+        'tgl_pengambilan',
     ];
 
     public function pesans()

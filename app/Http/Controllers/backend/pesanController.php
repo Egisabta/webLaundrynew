@@ -102,21 +102,21 @@ class pesanController extends Controller
 
                  $tanggalPesan = Carbon::createFromFormat('d F Y', $request->input('tgl_pesan'));
 
-    $pesan->id_pelanggan = $request->id_pelanggan;
-    $pesan->id_paket = $request->id_paket;
-    $pesan->tgl_pesan = $tanggalPesan->toDateString();
-    $pesan->berat = $request->berat;
-    $pesan->diskon_persen = $request->diskon_persen;
+                 $pesan->id_pelanggan = $request->id_pelanggan;
+                 $pesan->id_paket = $request->id_paket;
+                 $pesan->tgl_pesan = $tanggalPesan->toDateString();
+                 $pesan->berat = $request->berat;
+                 $pesan->diskon_persen = $request->diskon_persen;
 
-    $paket = Paket::find($request->id_paket);
-    if ($paket) {
-        $totalBayar = $paket->harga * $request->berat;
+                 $paket = Paket::find($request->id_paket);
+                 if ($paket) {
+                 $totalBayar = $paket->harga * $request->berat;
 
         // Hitung diskon dalam persentase jika ada
-        if ($request->diskon_persen) {
-            $diskonPersen = $request->diskon_persen;
-            $diskonRupiah = ($diskonPersen / 100) * $totalBayar;
-            $totalBayar -= $diskonRupiah;
+                 if ($request->diskon_persen) {
+                 $diskonPersen = $request->diskon_persen;
+                 $diskonRupiah = ($diskonPersen / 100) * $totalBayar;
+                 $totalBayar -= $diskonRupiah;
         }
 
         $pesan->total_bayar = max(0, $totalBayar);
