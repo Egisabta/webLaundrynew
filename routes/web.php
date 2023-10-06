@@ -29,6 +29,7 @@ Route::get('/delete/{id}', [paketController::class, 'delete'])->name('paket.dele
 Route::prefix('pesanan')->group(function(){
     Route::get('/view', [pesanController::class, 'index'])->name('pesanan.index');
     Route::get('/add', [pesanController::class, 'add'])->name('pesanan.add');
+    Route::get('/search', [pesanController::class, 'search'])->name('pesanan.search');
     Route::post('/store', [pesanController::class, 'store'])->name('pesanan.store');
     Route::get('/edit/{id}', [pesanController::class, 'edit'])->name('pesanan.edit');
     Route::post('/update/{id}', [pesanController::class, 'update'])->name('pesanan.update');
@@ -60,7 +61,7 @@ Route::prefix('pembayaran')->group(function(){
    
 });
 Route::prefix('cekStatus')->group(function(){
-    Route::get('/index', [cekStatusController::class, 'index'])->name('cekStatus.index');
+    Route::get('/index', [cekStatusController::class, 'index'])->name('cekStatus.index');  
     Route::get('/add/{id}', [cekStatusController::class, 'add'])->name('cekStatus.add');
     Route::post('/store/{id}', [cekStatusController::class, 'store'])->name('cekStatus.store');
   

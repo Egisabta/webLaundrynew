@@ -28,7 +28,13 @@
                      
                     <tr>
                         <td class="text-center">{{ $i-- }}</td>
-                        <td class="text-center">{{ $data->pelanggans->nama }}</td>
+                        <td class="text-center">
+                                @if (isset($data->pelanggans))
+                                {{ $data->pelanggans->nama }}
+                                @else
+                               <span style="color: red;">NotFound</span>
+                               @endif
+                               </td>
                         <td class="text-center">  
                           {{ \Carbon\Carbon::createFromFormat('Y-m-d', $data->tgl_pesan)->format('d F Y') }}
                         </td>

@@ -18,7 +18,30 @@ class pesanController extends Controller
             return view('admin.pesanan.index', $data);
          }
 
-        //  (['pelanggans', 'pakets'])
+         public function search(Request $request)
+         {
+             $keyword = $request->input('keyword');
+             $data['allDataPesanan'] = Pesan::with(['pelanggans', 'pakets', 'pembayarans'])
+                 ->where(function ($query) use ($keyword) {
+                     $query->whereHas('pelanggans', function ($subQuery) use ($keyword) {
+                         $subQuery->where('nama', 'like', '%' . $keyword . '%');
+                     })
+                     ->orWhereHas('pakets', function ($subQuery) use ($keyword) {
+                         $subQuery->where('nama_paket', 'like', '%' . $keyword . '%');
+                     })
+                     ->orWhereHas('pembayarans', function ($subQuery) use ($keyword) {
+                         $subQuery->where('status_pembayaran', 'like', '%' . $keyword . '%');
+                     });
+                 })
+                 ->orWhereDoesntHave('pembayarans') // Tambahan: Cari pesanan yang tidak memiliki pembayaran
+                 ->get();
+         
+             $data['keyword'] = $keyword;
+         
+             return view('admin.pesanan.index', $data);
+         }
+         
+
        
          public function add(Request $request){
             // $pelanggan =Pelanggan::where('nama','like','%'.$request->id_pelanggan. '%');
@@ -81,7 +104,7 @@ class pesanController extends Controller
                 $pelanggan = Pelanggan::all();
                 $paket = Paket::all();
 
-                return view('admin.pesanan.edit', compact('pesan', 'pelanggan', 'paket'));
+                return view('admin.pesanan.edit', compact('pesan', 'pelanggan', 'paket'),);
                 }
 
                 public function update(Request $request, $id)

@@ -174,6 +174,26 @@
     });
 </script>
 
+<script>
+    // Dapatkan elemen input pencarian
+    var searchInput = document.getElementById('search-input');
+
+    // Tambahkan event listener untuk memantau perubahan pada input pencarian
+    searchInput.addEventListener('input', function () {
+        var keyword = searchInput.value.toLowerCase().trim(); // Ambil nilai input pencarian
+        var tableRows = document.querySelectorAll('#datatable tbody tr'); // Dapatkan semua baris dalam tabel
+
+        tableRows.forEach(function (row) {
+            var rowData = row.textContent.toLowerCase(); // Ambil teks dari setiap baris
+            // Jika data sesuai dengan kata kunci, tampilkan baris; jika tidak, sembunyikan baris
+            row.style.display = rowData.includes(keyword) ? 'table-row' : 'none';
+        });
+    });
+</script>
+
+
+
+
 
   </body>
 </html>
