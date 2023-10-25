@@ -10,31 +10,34 @@ class Pesan extends Model
     use HasFactory;
     protected $table = 'pesans';
     protected $fillable = [
-        'id_pelanggan',
-        'id_paket',
+        'kd_transaksi',
+        'kd_pelanggan',
+        'kd_paket',
         'tgl_pesan',
         'berat',
+        'diskon_persen',
+        'pajak_persen',
+        'delivery',
+        'biaya_delivery',
         'total_bayar',
-        'diskon_persen'
+        'tgl_pembayaran',
+        'tgl_pengambilan',
+        'status_pembayaran',
+        'status',
+        'catatan',
         ];
 
-        public function pelanggans(){
-            return $this->belongsTo(Pelanggan::class, 'id_pelanggan');
-        }
-        public function pakets(){
-            return $this->belongsTo(Paket::class, 'id_paket');
-        }
-    //     public function pembayarans()
-    // {
-    //     return $this->hasOne(Pembayaran::class, 'pesanan_id');
-    // }
+       
 
-    public function pembayarans()
-    {
-        return $this->hasMany(Pembayaran::class, 'pesanan_id');
-    }
-    public function cek_statuses()
-    {
-        return $this->hasMany(CekStatus::class, 'id_pemesan', 'id');
-    }
+        public function pelanggans()
+        {
+            return $this->belongsTo(Pelanggan::class, 'kd_pelanggan');
+        }
+    
+        public function pakets()
+        {
+            return $this->belongsTo(Paket::class, 'kd_paket');
+        }
+
+   
 }

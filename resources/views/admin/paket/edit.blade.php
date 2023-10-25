@@ -10,6 +10,12 @@
                       <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-1000">
                       <form method="post" action="{{route('paket.update', $editData->id)}}" enctype="multipart/form-data">
                           @csrf
+
+                          <div class="mb-3">
+                                <label class="form-label" for="formGroupExampleInput">Kode Paket</label>
+                                <input class="form-control" id="formGroupExampleInput" type="text" placeholder="" name="kd_paket" value="{{$editData->kd_paket}}" readonly>
+                            </div>  
+                          
                         <div class="mb-3">
                           <label class="form-label" for="formGroupExampleInput">Nama Paket</label>
                           <input class="form-control" id="formGroupExampleInput" type="text" placeholder="" name="nama_paket" value="{{$editData->nama_paket}}">
@@ -22,7 +28,7 @@
                     
                         <div class="input-group mb-3">
                         <label for="inputField" class="input-group-text">Masukkan Harga</label>
-                          <input class="form-control" type="text" name="harga"  value="{{number_format($editData->harga,2)}}" aria-label=""><span class="input-group-text">/kg</span>
+                          <input class="form-control" type="text" name="harga"  value="{{$editData->harga}}" aria-label=""><span class="input-group-text">/kg</span>
                         </div>
 
                         <button type="submit" class="btn btn-success" style="float: right;">Simpan</button>

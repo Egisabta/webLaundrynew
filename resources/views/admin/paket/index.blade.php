@@ -11,6 +11,7 @@
                       <thead>
                         <tr>
                           <th class="text-center">No</th>
+                          <th class="text-center">Kode Paket</th>
                           <th class="text-center">Nama Paket</th>
                           <th class="text-center">Deskripsi</th>
                           <th class="text-center">Harga</th>
@@ -21,9 +22,10 @@
                       @foreach($paket as $data)
                         <tr>
                           <th class="text-center" max-width="15px" scope="row">{{$loop->iteration}}</th>
-                          <td style="max-width:70px; "> {{$data->nama_paket}}</td>
-                          <td style="max-width:400px;"> {{$data->deskripsi}}</td>
-                          <td style="max-width:80px;"> Rp.{{ number_format($data->harga, 2) }} /Kg</td>
+                          <td class="text-center" style="max-width:70px; "> {{$data->kd_paket}}</td>
+                          <td class="text-center" style="max-width:70px; "> {{$data->nama_paket}}</td>
+                          <td class="text-center" style="max-width:400px;"> {{$data->deskripsi}}</td>
+                          <td class="text-center" style="max-width:80px;"> Rp.{{ number_format($data->harga, 2) }} /Kg</td>
                           
                           <td class="text-center" style="max-width:70px;">
                          <!-- <a href=""class="btn btn-success btn-sm"><i class="fa fa-eye fa-lg" style="color:white"></i></a> -->
@@ -40,4 +42,5 @@
               </div>
             </div>
           </div>
+          
 @endsection

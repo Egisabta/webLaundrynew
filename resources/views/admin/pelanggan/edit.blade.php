@@ -10,6 +10,10 @@
                       <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-1000">
                       <form method="post" action="{{route('pelanggan.update', $editData->id)}}" enctype="multipart/form-data">
                           @csrf
+                          <div class="mb-3">
+                                <label class="form-label" for="formGroupExampleInput">Kode Pelanggan</label>
+                                <input class="form-control" id="formGroupExampleInput" type="text" placeholder="" name="kd_pelanggan" value="{{$editData->kd_pelanggan}}" readonly>
+                            </div>                     
                         <div class="mb-3">
                           <label class="form-label" for="formGroupExampleInput">Nama Pelanggan</label>
                           <input class="form-control" id="formGroupExampleInput" type="text" placeholder="" name="nama" value="{{$editData->nama}}">

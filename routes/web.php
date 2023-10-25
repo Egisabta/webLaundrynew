@@ -17,6 +17,11 @@ Route::get('/', function () {
     return view('backend.index');
 });
 
+
+Route::get('/user', function () {
+    return view('frontend.user');
+});
+
 Route::prefix('paket')->group(function(){
 Route::get('/view', [paketController::class, 'index'])->name('paket.index');
 Route::get('/add', [paketController::class, 'add'])->name('paket.add');
@@ -34,6 +39,10 @@ Route::prefix('pesanan')->group(function(){
     Route::get('/edit/{id}', [pesanController::class, 'edit'])->name('pesanan.edit');
     Route::post('/update/{id}', [pesanController::class, 'update'])->name('pesanan.update');
     Route::get('/delete/{id}', [pesanController::class, 'delete'])->name('pesanan.delete');
+    Route::post('/pesanan/update-status/{id}',[pesanController::class, 'updateStatus'])->name('pesanan.updateStatus');
+    Route::get('invoice/{kd_transaksi}/pdf',[pesanController::class, 'invoice'])->name('pesanan.invoice');
+
+
 });
 
 Route::prefix('pelanggan')->group(function(){
@@ -67,8 +76,3 @@ Route::prefix('cekStatus')->group(function(){
   
 
 });
-
-Route::get('cetak-nota-pesanan/{id}', [notaController::class, 'notabelumBayar'])->name('nota.no');
-
-
-

@@ -12,35 +12,58 @@ class pelangganController extends Controller
         $pelanggan = Pelanggan::all();
         return view('admin.pelanggan.index', compact('pelanggan'));
       }
-      public function add(){
-        return view('admin.pelanggan.add');
-    }
-    public function store(Request $request){
-        $rules=[
+      public function add()
+      {
+          $lastPelanggan = Pelanggan::latest('kd_pelanggan')->first();
+          if ($lastPelanggan) {
+              $lastNumber = (int) substr($lastPelanggan->kd_pelanggan, 4);
+              $newNumber = $lastNumber + 1;
+          } else {
+              $newNumber = 1;
+          }
+          $newKodePelanggan = 'KPP' . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
+
+          
+  
+      
+          return view('admin.pelanggan.add', compact('newKodePelanggan'));
+      }
+      
+    public function store(Request $request) {
+      $rules = [
           'nama' => 'required',
           'alamat' => 'required',
           'no_telp' => 'required',
-         ];
-    
-           $messages =[
-             'nama.required' => '*Nama harus diisi',
-             'alamat.required' => '*Dekripsi harus diisi',
-             'no_telp.required' => '*nomor Telp harus diisi' 
-         ];
-    
-         $this->validate($request,$rules,$messages);
-   
-          $pelanggan = new Pelanggan(); 
-          $pelanggan->nama=$request->input('nama');
-          $pelanggan->alamat=$request->input('alamat');
-          $pelanggan->no_telp=$request->no_telp;
-        
-      
-         
-          $pelanggan->save();
-          return redirect()->route('pelanggan.index')->with('success', 'Banner berhasil ditambahkan');
-    
-       }
+      ];
+  
+      $messages = [
+          'nama.required' => '*Nama harus diisi',
+          'alamat.required' => '*Deskripsi harus diisi',
+          'no_telp.required' => '*Nomor Telp harus diisi'
+      ];
+  
+      $this->validate($request, $rules, $messages);
+  
+
+      $lastPelanggan = Pelanggan::latest('kd_pelanggan')->first();
+      if ($lastPelanggan) {
+          $lastNumber = (int)substr($lastPelanggan->kd_pelanggan, 4);
+          $newNumber = $lastNumber + 1;
+          $newKodePelanggan = 'KPP' . sprintf('%4d', $newNumber);
+      } else {
+          $newKodePelanggan = 'KPP0001';
+      }
+  
+      $pelanggan = new Pelanggan();
+      $pelanggan->kd_pelanggan = $newKodePelanggan;
+      $pelanggan->nama = $request->input('nama');
+      $pelanggan->alamat = $request->input('alamat');
+      $pelanggan->no_telp = $request->input('no_telp');
+  
+      $pelanggan->save();
+      return redirect()->route('pelanggan.index')->with('success', 'Pelanggan berhasil ditambahkan');
+  }
+  
        public function edit(Request $request, $id){
         $editData = Pelanggan::findOrFail($id);
          return view('admin.pelanggan.edit', compact('editData'));

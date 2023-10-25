@@ -1,4 +1,5 @@
 @extends('backend.master')
+
 @section('backend')
 <div class="card mb-4">
     <div class="card-header"><strong>Table Pesanan</strong></div>
@@ -19,16 +20,24 @@
                             </div>
                         </form>
                     </div>
-                    <table id="datatable" class="table table-bordered dt-responsive" cellspacing="0" width="100%">
-                        <thead>
-                            <tr>
+                    <!-- Wrap the table in a div for horizontal scrolling -->
+                    <div class="table-responsive">
+                        <table id="datatable" class="table table-bordered dt-responsive" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
                                 <th class="text-center">No</th>
+                                <th class="text-center">Tanggal Pesan</th>
+                                <th class="text-center">Kode Transaksi</th>
                                 <th class="text-center">Nama Pelanggan</th>
                                 <th class="text-center">Jenis Paket</th>
-                                <th class="text-center">Tanggal Pesan</th>
-                                <th class="text-center">Berat</th>
+                                <th class="text-center">Berat /KG</th>
+                                <th class="text-center">Diantar</th>
                                 <th class="text-center">Total Bayar</th>
-                                <th class="text-center">Status Bayar</th>
+                                <th class="text-center">Status Pembayaran</th>
+                                <th class="text-center">Tanggal Pembayaran</th>
+                                <th class="text-center">Status Laundry</th>
+                                <th class="text-center">Tanggal Pengambilan</th>
+                                <th class="text-center">Catatan</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -38,6 +47,11 @@
                             <tr>
                                 <th class="text-center" max-width="15px" scope="row">{{ $i-- }}</th>
                                 <td class="text-center">
+                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d', $data->tgl_pesan)->format('d F Y') }}
+                                </td>
+                                <td class="text-center">{{ $data->kd_transaksi }}</td>
+                                
+                                <td class="text-center">
                                     @if (isset($data->pelanggans))
                                         {{ $data->pelanggans->nama }}
                                     @else
@@ -46,15 +60,19 @@
                                 </td>
                                 <td class="text-center">
                                     @if (isset($data->pakets))
-                                        {{ $data->pakets->nama_paket }} - {{ $data->pakets->harga}}
+                                        {{ $data->pakets->nama_paket }}-Rp.{{ number_format($data->pakets->harga, 2) }} 
                                     @else
                                         <span style="color: red;">Data Hilang</span>
                                     @endif
                                 </td>
-                                <td class="text-center">
-                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d', $data->tgl_pesan)->format('d F Y') }}
-                                </td>
-                                <td class="text-center">{{ $data->berat }} kg</td>
+                                 <td class="text-center">{{ $data->berat }} kg</td>
+                                 <td class="text-center">
+                                 @if ($data->delivery)
+                                    Ya
+                                  @else
+                                    Tidak
+                                  @endif
+                                  </td>
                                 <td class="text-center">
                                     Rp.{{ number_format($data->total_bayar, 2) }}
                                     @if ($data->diskon_persen)
@@ -63,30 +81,62 @@
                                         Diskon {{ $data->diskon_persen }}%
                                     </span>
                                     @endif
-                                </td>
+                                    @if ($data->pajak_persen)
+                                    <br>
+                                    <span class="text-muted" style="font-size: 12px;">
+                                        Pajak {{ $data->pajak_persen }}%
+                                    </span>
+                                    @endif
+                                    @if ($data->biaya_delivery)
+                                    <br>
+                                    <span class="text-muted" style="font-size: 12px;">
+                                        Biaya Antar Rp.{{ $data->biaya_delivery }}
+                                    </span>
+                                    @endif
+                                    </td>
+
+                                <td class="text-center">{{ $data->status_pembayaran }}</td>
 
                                 <td class="text-center">
-                                @if ($data->pembayarans->isEmpty())
-                                <span class="text-danger">Belum Bayar</span>
-                                <br>
-                                <button class="small btn btn-link" onclick="showInvoiceModal({{ $data->id }}, 'Belum Bayar')">Invoice</button>
+                                @if ($data->tgl_pembayaran)
+                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $data->tgl_pembayaran)->format('d F Y') }}
                                 @else
-                                @foreach ($data->pembayarans as $pembayaran)
-                                <span class="text-success">{{ $pembayaran->status_pembayaran ?? 'Belum Bayar' }}</span>
-                                <br>
-                               @if ($pembayaran->status_pembayaran === 'Lunas')
-                               <span>{{ $pembayaran->jenis_pembayarans->jenis_pembayaran ?? '-' }}</span>
-                                @endif
-                                 <br>
-                                <button class="small btn btn-link" onclick="showInvoiceModal({{ $data->id }}, 'Lunas')">Invoice</button>
-                                @endforeach
+                                <span style="color: red;">-</span>
                                 @endif
                                 </td>
 
                                 <td class="text-center">
-                                    <a href="{{ route('pembayaran.add', ['pesanan_id' => $data->id]) }}" class="btn btn-info btn-sm">
-                                        <i class="fa fa-money-bill-alt fa-lg" style="color:white"></i>
-                                    </a>
+                                <form action="{{ route('pesanan.updateStatus', $data->id) }}" method="POST">
+                                 @csrf
+                                 @method('POST')
+                                 <select name="status" onchange="this.form.submit()">
+                                 <option value="Baru" {{ $data->status == 'Baru' ? 'selected' : '' }}>Baru</option>
+                                 <option value="Proses" {{ $data->status == 'Proses' ? 'selected' : '' }}>Proses</option>
+                                 <option value="Diantar" {{ $data->status == 'Diantar' ? 'selected' : '' }}>Diantar</option>
+                                 <option value="Selesai" {{ $data->status == 'Selesai' ? 'selected' : '' }}>Selesai</option>
+                                  </select>
+                                  </form>
+                                  </td>
+
+
+                                <td class="text-center">
+                                @if ($data->tgl_pengambilan)
+                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $data->tgl_pengambilan)->format('d F Y') }}
+                                @else
+                                <span style="color: red;">-</span>
+                                @endif
+                                </td>
+
+                                <td class="text-center">
+                                @if ($data->catatan)
+                                {{ $data->catatan }}
+                                @else
+                                <span style="color: red;">-</span>
+                                @endif
+                                </td>
+
+                                <td >
+                                  <a href="{{ route('pesanan.invoice', $data->kd_transaksi) }}" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-print fa-lg" style="color:white"></i></a>
                                     <a href="{{ route('pesanan.edit', $data->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit fa-lg" style="color:white"></i></a>
                                     <a href="{{ route('pesanan.delete', $data->id) }}" id="delete" class="btn btn-danger btn-sm"><i class="fa fa-trash fa-lg" style="color:white"></i></a>
                                 </td>
@@ -99,161 +149,29 @@
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="invoiceModal" tabindex="-1" role="dialog" aria-labelledby="invoiceModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="invoiceModalLabel">Nota Laundry</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Content of your modal body -->
-                <!-- <p>Nama Pelanggan: <span id="invoiceNamaPelanggan"></span></p> -->
-                <!-- <p>Jenis Paket: <span id="invoiceJenisPaket"></span></p>
-                <p>Harga Paket: <span id="invoiceHargaPaket"></span></p> -->
-                <!-- <p>Deskripsi Paket: <span id="invoiceDeskripsiPaket"></span></p>
-                <p>Tanggal Pesan: <span id="invoiceTanggalPesan"></span></p> -->
-                <!-- <p>Berat: <span id="invoiceBerat"></span> kg</p>
-                <p>Total Bayar: Rp.<span id="invoiceTotalBayar"></span></p>
-                <p>Diskon: <span id="invoiceDiskon"></span></p> -->
-                <!-- <p>Status Pembayaran: <span id="invoiceStatusBayar"></span></p> -->
-                <!-- <p id="jenisPembayaranLabel">Jenis Pembayaran: <span id="jenisPembayaran"></span></p>
-                <p id="invoiceTanggalPembayaranLabel">Tanggal Pembayaran: <span id="invoiceTanggalPembayaran"></span></p> -->
-
-                <!-- Table -->
-                <table class="table">
-                    <thead>
-                       
-                    </thead>
-                    <tbody>
-                        <!-- Add your table rows here -->
-                        <tr>
-                            <td>Nama Pelanggan</td>
-                            <td id="invoiceNamaPelanggan"></td>
-                        </tr>
-                       
-                        <tr>
-                        <td>Status Pembayaran</td>
-                        <td id="invoiceStatusBayar"></td>
-                        </tr>
-
-                        <tr>
-                        <td>Jenis Paket</td>
-                        <td id="invoiceJenisPaket"></td>
-                        </tr>
-
-                         <tr>
-                         <td>Harga Paket</td>
-                         <td id="invoiceHargaPaket"></td>
-                         </tr>
-
-                         <tr>
-                        <td>Deskripsi Paket</td>
-                        <td id="invoiceDeskripsiPaket"></td>
-                        </tr>
-
-                         <tr>
-                         <td>Tanggal Pesan</td>
-                         <td id="invoiceTanggalPesan"></td>
-                         </tr>
-
-            <tr>
-                <td>Berat</td>
-                <td id="invoiceBerat"></td>
-            </tr>
-            <tr>
-                <td>Total Bayar</td>
-                <td id="invoiceTotalBayar"></td>
-            </tr>
-            <tr>
-                <td>Diskon</td>
-                <td id="invoiceDiskon"></td>
-            </tr>
-         
-             
-
-            <p id="jenisPembayaranLabel">Jenis Pembayaran: <span id="jenisPembayaran"></span></p>
-                <p id="invoiceTanggalPembayaranLabel">Tanggal Pembayaran: <span id="invoiceTanggalPembayaran"></span></p>
-
-
-
-            
-
-                        
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-primary" onclick="cetakInvoice()">Cetak</button>
-            </div>
-        </div>
-    </div>
 </div>
 
 
-<script>
-    function showInvoiceModal(pesananId, statusPembayaran) {
-    var data = @json($allDataPesanan);
-    var invoiceButton = document.getElementById('invoiceButton-' + pesananId);
-    var pesanan = data.find(function (item) {
-        return item.id === pesananId;
-    });
+<!-- <script>
+   $('.edit-status').on('change', function() {
+    var selectedStatus = $(this).val();
+    var dataId = $(this).data('id');
 
-    if (pesanan) {
-        document.getElementById('invoiceNamaPelanggan').textContent = pesanan.pelanggans ? pesanan.pelanggans.nama : 'Data Hilang';
-        document.getElementById('invoiceJenisPaket').textContent = pesanan.pakets ? pesanan.pakets.nama_paket : 'Data Hilang';
-        document.getElementById('invoiceHargaPaket').textContent = pesanan.pakets ? pesanan.pakets.harga : 'Data Hilang';
-        document.getElementById('invoiceDeskripsiPaket').textContent = pesanan.pakets ? pesanan.pakets.deskripsi : 'Data Hilang';
-        var tglPesan = new Date(pesanan.tgl_pesan);
-        var options = { year: 'numeric', month: 'long', day: 'numeric' };
-        document.getElementById('invoiceTanggalPesan').textContent = tglPesan.toLocaleDateString('id-ID', options);
-        document.getElementById('invoiceBerat').textContent = pesanan.berat;
-        var formattedTotalBayar = new Intl.NumberFormat('id-ID').format(pesanan.total_bayar);
-        document.getElementById('invoiceTotalBayar').textContent = formattedTotalBayar;
-        var diskon = pesanan.diskon_persen ? '' + pesanan.diskon_persen + '%' : 'Tidak ada diskon';
-        document.getElementById('invoiceDiskon').textContent = diskon;
-
-        if (statusPembayaran === 'Lunas') {
-            document.getElementById('invoiceStatusBayar').textContent = 'Lunas';
-            var tanggalPembayaran = '';
-            var jenisPembayaran = '';
-
-         
-            pesanan.pembayarans.forEach(function (pembayaran) {
-                if (pembayaran.status_pembayaran === 'Lunas') {
-                    tanggalPembayaran = new Date(pembayaran.tanggal_pembayaran);
-                    tanggalPembayaran = tanggalPembayaran.toLocaleDateString('id-ID', options);
-                    jenisPembayaran = pembayaran.jenis_pembayarans ? pembayaran.jenis_pembayarans.jenis_pembayaran : '';
-                }
-            });
-
-            document.getElementById('invoiceTanggalPembayaran').textContent = tanggalPembayaran;
-            document.getElementById('invoiceTanggalPembayaranLabel').style.display = 'block';
-            document.getElementById('jenisPembayaran').textContent = jenisPembayaran;
-            document.getElementById('jenisPembayaranLabel').style.display = 'block';
-        } else {
-            document.getElementById('invoiceStatusBayar').textContent = 'Belum Bayar';
-            document.getElementById('invoiceTanggalPembayaran').textContent = '';
-            document.getElementById('jenisPembayaran').textContent = '';
-            document.getElementById('jenisPembayaranLabel').style.display = 'none';
+   
+    $.ajax({
+        url: '/update-status/' + dataId, 
+        method: 'POST',
+        data: { status: selectedStatus, _token: '{{ csrf_token() }}' },
+        success: function(response) {
+          
+        },
+        error: function(error) {
+          
         }
-    }
+    });
+});
 
-    $('#invoiceModal').modal('show');
-}
-
-    function cetakInvoice() {
-        // Logika pencetakan invoice (Anda perlu menambahkan logika cetak di sini)
-        // Misalnya, menggunakan jsPDF atau cara lain untuk mencetak
-        // Anda juga dapat mencetak menggunakan server jika diperlukan.
-
-        window.print();
-    }
-</script>
+</script> -->
 
 
 @endsection

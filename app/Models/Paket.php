@@ -10,10 +10,11 @@ class Paket extends Model
 {
     use HasFactory;
     protected $table = 'pakets';
-    protected $fillable = ['nama_paket', 'deskripsi', 'harga'];
+    protected $fillable = ['kd_paket','nama_paket', 'deskripsi', 'harga'];
 
-    public function pesans(){
-        return $this->hasMany(Pesan::class, 'id_paket');
+    public function pesans()
+    {
+        return $this->hasMany(Pesan::class, 'kd_paket');
     }
 
 }

@@ -14,7 +14,15 @@ class paketController extends Controller
        }
 
     public function add(){
-        return view('admin.paket.add');
+      $lastPaket = Paket::latest('kd_paket')->first();
+      if ($lastPaket) {
+          $lastNumber = (int) substr($lastPaket->kd_paket, 3);
+          $newNumber = $lastNumber + 1;
+      } else {
+          $newNumber = 1;
+      }
+      $newKodePaket = 'KPA' . str_pad($newNumber, 3, '0', STR_PAD_LEFT);
+        return view('admin.paket.add', compact('newKodePaket'));
     }
 
     public function store(Request $request){
@@ -34,7 +42,17 @@ class paketController extends Controller
       $this->validate($request,$rules,$messages);
       //  $x = (float) $request->input('harga');
 
+      $lastPaket = Paket::latest('kd_paket')->first();
+      if ($lastPaket) {
+          $lastNumber = (int)substr($lastPaket->kd_paket, 3);
+          $newNumber = $lastNumber + 1;
+          $newKodePaket = 'KPA' . sprintf('%03d', $newNumber); // Ubah menjadi 'KPA' dan tambahkan 3 digit
+      } else {
+          $newKodePaket = 'KPA001';
+      }
+
        $paket = new Paket(); 
+       $paket->kd_paket = $newKodePaket;
        $paket->nama_paket=$request->input('nama_paket');
        $paket->deskripsi=$request->input('deskripsi');
        $paket->harga=$request->input('harga');
@@ -48,7 +66,7 @@ class paketController extends Controller
     }
     public function edit(Request $request, $id){
         $editData = Paket::findOrFail($id);
-         return view('backend.paket.edit', compact('editData'));
+         return view('admin.paket.edit', compact('editData'));
     }
     public function update(Request $request, $id)
     {

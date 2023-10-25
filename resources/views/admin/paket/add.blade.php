@@ -10,6 +10,14 @@
                       <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-1000">
                       <form action="{{ route('paket.store') }}" method="post" enctype="multipart/form-data">
                       @csrf
+
+                      <fieldset disabled>
+                            <div class="form-group">
+                            <label for="disabledTextInput">Kode Paket</label>
+                            <input type="text" id="disabledTextInput" class="form-control"  name="kd_paket" value="{{ $newKodePaket }}">
+                            </div>
+                            </fieldset>
+                           
                         <div class="mb-3">
                           <label class="form-label" for="formGroupExampleInput">Nama Paket</label>
                           <input class="form-control  @error('nama_paket') is-invalid @enderror" id="formGroupExampleInput" type="text" placeholder="" name="nama_paket">

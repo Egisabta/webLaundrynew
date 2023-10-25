@@ -145,23 +145,12 @@
     </script>
  @endif
 
- <!-- <script>
-    $(document).ready(function () {
-        $('#tgl_pesan, #tgl_pembyaran').datepicker({
-          dateFormat: "dd MM yy", // Format tanggal seperti "12 Agustus 2023"
-        // Anda dapat menyesuaikan format sesuai kebutuhan Anda
-        autoclose: true, // Menutup kalender setelah memilih tanggal
-        });
 
-        $('#tgl_pesan, #tgl_pembyaran').datepicker('setDate', new Date());
-    });
-</script> -->
 <script>
     $(document).ready(function () {
         $('#tgl_pesan, #tgl_pembayaran, #tgl_pengambilan').datepicker({
-            dateFormat: "dd MM yy", // Format tanggal seperti "12 Agustus 2023"
-            // Anda dapat menyesuaikan format sesuai kebutuhan Anda
-            autoclose: true, // Menutup kalender setelah memilih tanggal
+            dateFormat: "dd MM yy", 
+            autoclose: true, 
         });
 
         // $('#tgl_pesan, #tgl_pembayaran, #tgl_pengambilan').datepicker('setDate', new Date());
@@ -191,7 +180,17 @@
     });
 </script>
 
-
+<script>
+    $(document).ready(function () {
+        $('#deliveryCheckbox').change(function () {
+            if ($(this).is(':checked')) {
+                $('#biayaDeliveryField').show();
+            } else {
+                $('#biayaDeliveryField').hide();
+            }
+        });
+    });
+</script>
 
 
 
