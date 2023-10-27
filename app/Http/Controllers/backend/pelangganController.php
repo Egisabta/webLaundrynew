@@ -21,7 +21,7 @@ class pelangganController extends Controller
           } else {
               $newNumber = 1;
           }
-          $newKodePelanggan = 'KPP' . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
+          $newKodePelanggan = 'KPP' . str_pad($newNumber, 4, '0001', STR_PAD_LEFT);
 
           
   
@@ -47,12 +47,12 @@ class pelangganController extends Controller
 
       $lastPelanggan = Pelanggan::latest('kd_pelanggan')->first();
       if ($lastPelanggan) {
-          $lastNumber = (int)substr($lastPelanggan->kd_pelanggan, 4);
+          $lastNumber = (int)substr($lastPelanggan->kd_pelanggan, 3);
           $newNumber = $lastNumber + 1;
-          $newKodePelanggan = 'KPP' . sprintf('%4d', $newNumber);
+          $newKodePelanggan = 'KPP' . sprintf('%04d', $newNumber);
       } else {
-          $newKodePelanggan = 'KPP0001';
-      }
+    $newKodePelanggan = 'KPP0001';
+}
   
       $pelanggan = new Pelanggan();
       $pelanggan->kd_pelanggan = $newKodePelanggan;
